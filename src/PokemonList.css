@@ -1,0 +1,29 @@
+.pokemon-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchbar {
+  font-size: 22px;
+  margin: 10px;
+  width: 250px;
+}
+
+.pokemon-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  width: 250px;
+  background-color: antiquewhite;
+  border: 3px solid powderblue;
+  border-radius: 5px;
+  margin: 15px;
+}
+
+.sprite-image {
+  width: 200px;
+}
