@@ -18,8 +18,35 @@ export default function PokemonList() {
       .catch(err => `Error: ${err}`)
   }, [])
 
-  const Pokemon = props => (
-    <div className='pokemon-div'>
+  const SearchBar = () => (
+    <div className='searchbar-div'>
+      <input
+        className='searchbar'
+        placeholder='Search Pokemon...'
+        value={search}
+        onChange={e => setSearch(e.target.value)}
+      />
+    </div>
+  )
+
+  const PokemonCardList = () => (
+    <div className='pokemonlist-container'>
+      {search !== ''
+        ? filteredPokemon
+            .map(pokemon => <PokemonCard key={pokemon.id} {...pokemon} />)
+            .sort((a, b) => {
+              return a - b
+            })
+        : pokemonList
+            .map(pokemon => <PokemonCard key={pokemon.id} {...pokemon} />)
+            .sort((a, b) => {
+              return a - b
+            })}
+    </div>
+  )
+
+  const PokemonCard = props => (
+    <div className='pokemonlist-div'>
       <h3>{`#${props.id} ${
         props.name[0].toUpperCase() + props.name.slice(1)
       }`}</h3>
@@ -41,31 +68,18 @@ export default function PokemonList() {
     pokemon.name.toLowerCase().includes(search.toLowerCase())
   )
 
-  const regi = []
-  regi.push(pokemonList[375])
-  console.log(regi)
-  console.log(pokemonList)
-
   return (
-    <div className='pokemon-container'>
-      <div>
+    <div className='container'>
+      <div className='searchbar-div'>
         <input
           className='searchbar'
+          placeholder='Search Pokemon...'
           value={search}
           onChange={e => setSearch(e.target.value)}
         />
       </div>
-      {search !== ''
-        ? filteredPokemon
-            .map(pokemon => <Pokemon key={pokemon.id} {...pokemon} />)
-            .sort((a, b) => {
-              return a - b
-            })
-        : pokemonList
-            .map(pokemon => <Pokemon key={pokemon.id} {...pokemon} />)
-            .sort((a, b) => {
-              return a - b
-            })}
+
+      <PokemonCardList />
     </div>
   )
 }
