@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react'
 
 export default function PokemonList() {
   const [pokemonList, setPokemonList] = useState([])
+  const [shinyToggle, setShinyToggle] = useState(false)
   const [search, setSearch] = useState('')
 
   useEffect(() => {
-    fetch(`https://pokeapi.co/api/v2/pokemon?limit=500`)
+    fetch(`https://pokeapi.co/api/v2/pokemon?limit=750`)
       .then(res => res.json())
       .then(allPokemon =>
         allPokemon.results.forEach(pokemon => {
@@ -26,6 +27,7 @@ export default function PokemonList() {
         value={search}
         onChange={e => setSearch(e.target.value)}
       />
+      <button>Shiny</button>
     </div>
   )
 
@@ -46,13 +48,15 @@ export default function PokemonList() {
   )
 
   const PokemonCard = props => (
-    <div className='pokemonlist-div'>
-      <h3>{`#${props.id} ${
+    <div className='pokemon-card'>
+      <h3 className='pokemon-name'>{`#${props.id} ${
         props.name[0].toUpperCase() + props.name.slice(1)
       }`}</h3>
       <img
         className='sprite-image'
-        src={props.sprites.front_default}
+        src={
+          shinyToggle ? props.sprites.front_shiny : props.sprites.front_default
+        }
         alt={'Pokemon Sprite'}
       />
       <p>
@@ -68,6 +72,8 @@ export default function PokemonList() {
     pokemon.name.toLowerCase().includes(search.toLowerCase())
   )
 
+  console.log(pokemonList)
+
   return (
     <div className='container'>
       <div className='searchbar-div'>
@@ -77,8 +83,13 @@ export default function PokemonList() {
           value={search}
           onChange={e => setSearch(e.target.value)}
         />
+        <button
+          className={shinyToggle ? 'btn' : 'btn btn-shiny'}
+          onClick={() => setShinyToggle(!shinyToggle)}
+        >
+          Shiny
+        </button>
       </div>
-
       <PokemonCardList />
     </div>
   )

@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  padding-top: 45px;
+  padding-top: 65px;
 }
 
 .searchbar-div {
@@ -18,24 +18,52 @@
 }
 
 .searchbar {
-  font-size: 18px;
+  font-size: 20px;
   margin: 10px;
   width: 250px;
+  padding: 7.5px;
+  border-radius: 5px;
 }
 
-.pokemonlist-div {
+.btn {
+  color: rgb(255, 255, 255);
+  background-color: rgb(255, 143, 162);
+  font-size: 20px;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 5px;
+}
+
+.btn:hover {
+  background-color: rgb(255, 166, 181);
+  cursor: pointer;
+}
+
+.btn-shiny {
+  background-color: rgb(255, 166, 181);
+}
+
+.btn-shiny:hover {
+  background-color: rgb(255, 143, 162);
+  cursor: pointer;
+}
+
+.pokemon-card {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  width: 250px;
+  width: 300px;
   background-color: rgb(241, 239, 236);
   border: 3px solid rgb(140, 115, 179);
   border-radius: 5px;
   margin: 25px;
 }
 
+.pokemon-name {
+  font-size: 1.5rem;
+}
 .sprite-image {
-  width: 200px;
+  width: 225px;
 }
