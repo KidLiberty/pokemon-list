@@ -19,7 +19,7 @@ export default function PokemonList() {
       .catch(err => `Error: ${err}`)
   }, [])
 
-  const SearchBar = () => (
+  const NavBar = () => (
     <div className='searchbar-div'>
       <input
         className='searchbar'
@@ -27,7 +27,12 @@ export default function PokemonList() {
         value={search}
         onChange={e => setSearch(e.target.value)}
       />
-      <button>Shiny</button>
+      <button
+        className={shinyToggle ? 'btn' : 'btn btn-shiny'}
+        onClick={() => setShinyToggle(!shinyToggle)}
+      >
+        Shiny
+      </button>
     </div>
   )
 
@@ -65,6 +70,23 @@ export default function PokemonList() {
           props.abilities[0].ability.name.slice(1)
         }`}
       </p>
+      <PreviousAndNextButton ButtonStyles={ButtonStyles} />
+    </div>
+  )
+
+  const PreviousAndNextButton = props => (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center'
+      }}
+    >
+      <button className='btn' style={props.ButtonStyles}>
+        Previous
+      </button>
+      <button className='btn' style={props.ButtonStyles}>
+        Next
+      </button>
     </div>
   )
 
@@ -72,24 +94,19 @@ export default function PokemonList() {
     pokemon.name.toLowerCase().includes(search.toLowerCase())
   )
 
-  console.log(pokemonList)
+  const ButtonStyles = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgb(140, 115, 179)',
+    fontSize: '16px',
+    margin: '10px',
+    width: '100px'
+  }
 
   return (
     <div className='container'>
-      <div className='searchbar-div'>
-        <input
-          className='searchbar'
-          placeholder='Search Pokemon...'
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-        />
-        <button
-          className={shinyToggle ? 'btn' : 'btn btn-shiny'}
-          onClick={() => setShinyToggle(!shinyToggle)}
-        >
-          Shiny
-        </button>
-      </div>
+      <NavBar />
       <PokemonCardList />
     </div>
   )
