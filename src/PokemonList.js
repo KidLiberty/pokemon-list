@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 
 export default function PokemonList() {
   const [pokemonList, setPokemonList] = useState([])
@@ -90,8 +90,12 @@ export default function PokemonList() {
     </div>
   )
 
-  const filteredPokemon = pokemonList.filter(pokemon =>
-    pokemon.name.toLowerCase().includes(search.toLowerCase())
+  const filteredPokemon = useMemo(
+    () =>
+      pokemonList.filter(pokemon =>
+        pokemon.name.toLowerCase().includes(search.toLowerCase())
+      ),
+    [pokemonList, search]
   )
 
   const ButtonStyles = {
@@ -106,7 +110,20 @@ export default function PokemonList() {
 
   return (
     <div className='container'>
-      <NavBar />
+      <div className='searchbar-div'>
+        <input
+          className='searchbar'
+          placeholder='Search Pokemon...'
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+        />
+        <button
+          className={shinyToggle ? 'btn' : 'btn btn-shiny'}
+          onClick={() => setShinyToggle(!shinyToggle)}
+        >
+          Shiny
+        </button>
+      </div>
       <PokemonCardList />
     </div>
   )
